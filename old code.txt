@@ -1,0 +1,64 @@
+ace = ''
+    cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '10', '10', '10', ace]
+    suit = ["Hearts", "Clubs", "Diamonds", "Spades"]
+    # Player card setup
+    bet = int(input('How much are you betting?\n'))
+    # Generate cards
+    # new card generation
+    card1 = rnd.choice(cards)
+    card2 = rnd.choice(cards)
+    # ------
+    player_card1 = rnd.choice(cards)
+    player_card_suit1 = rnd.choice(suit)
+    player_card2 = rnd.choice(cards)
+    player_card_suit2 = rnd.choice(suit)
+    pcard1 = player_card1 + ' of ' + player_card_suit1
+    pcard2 = player_card2 + ' of ' + player_card_suit2
+
+    # Check cards
+
+    # Attempt at checking for Black Jack (come back later)
+    """if 'Ace' in (player_card1, player_card2):
+        if '10' or 'Jack' or 'Queen' or 'King' in (player_card1, player_card2):
+            print("You win! You have a Black Jack!")
+
+        elif 'Ace' in (player_card1, player_card2):
+            ace = input("You have an Ace, is it's value 1 or 11:\n")
+            if ace == str(1):
+                ace = True
+            if ace == str(11):
+                ace = False
+            print(ace)"""
+
+    hit_or_stand = input(f'Your cards are {pcard1} and {pcard2}\nHit or stand?:\n')
+    if hit_or_stand == str(1):
+        if 'Ace' in (pcard1 or pcard2):
+            ace = input(f'You have an Ace, what is its value? 1 or 11:\n')
+            if ace == 1:
+                ace = 1
+                print(f'Ace is now {ace}')
+            elif ace == 11:
+                ace = 11
+                print(f'Ace is now {ace}')
+            else:
+                print('Not a valid number')
+        print('Done!')
+
+    elif hit_or_stand == str(2):
+        if 'Ace' in (pcard1 or pcard2):
+
+        player_card3 = rnd.choice(cards)
+        player_card_suit3 = rnd.choice(suit)
+        pcard3 = player_card3 + ' of ' + player_card_suit3
+        print(f'Your cards are now {pcard1}, {pcard2}, {pcard3}')
+        total = int(player_card1) + int(player_card2) + int(player_card3)
+        if total > 21:
+            print('Failed, you busted')
+
+        else:
+            print('Damn, youre lucky, heres your points...')
+            bet *= 2
+            print(f'Your balance is now {bet} points')
+
+    else:
+        print('You need to type 1 for Stand or 2 for Hit, try again later')

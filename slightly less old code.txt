@@ -1,0 +1,77 @@
+import random as rnd
+import time
+
+# Cards: 2-10 are their face values, Jack-King are 10 each, Ace is either 1 or 11 (depends on your hand)
+# Both players get 2 cards, dealer only shows one of their cards (other is face down)
+# The goal is to get closer to 21 than the dealer without going over
+# dealer only gets to hit once (?)
+# if the player wins: They get the same amount as their bet if player looses: they loose their entire bet. if player pushes: nothing
+# if you are dealt an ace and a 10 value card then you have a black jack and if the dealer doesnt also have a black jack then you win automatically
+# Black jacks are paid 3:2 meaning that they are paid 150% of their bet
+# The player can hit or stand depending on whether they feel close enough to 21 or not
+
+# I have to check for ace in card3 aswell as both if statements
+
+def card():
+    # Card generation
+    ace = 'Ace'
+    card_num = [2, 3, 4, 5, 6, 7, 8, 9, 10, ace]
+    card1 = rnd.randrange(2, 11)
+    card2 = rnd.choice(card_num)
+    dcard1 = rnd.choice(card_num)
+    dcard2 = rnd.choice(card_num)
+    hand = [card1, card2]
+    dhand = [dcard1, dcard2]
+    print(f'{hand[0]} and {hand[1]} is your hand.\n')
+    print(f'Total value = {hand[0] + hand[1]}')
+    # checking for ace
+    if ace in hand:
+        acevalue = input('Is the ace 1 or 11?\n| ')
+        hand.remove(ace)
+        hand.append(int(acevalue))
+        print(f'{hand[0]} and {hand[1]} is your hand.')
+        print(f'Total value = {hand[0] + hand[1]}')
+    # Hit or Stand?
+    hit_stand = input('Hit (1) or Stand (2)?\n| ')
+    if hit_stand == str(1):
+        card3 = rnd.choice(card_num)
+        hand.append(card3)
+        # Come back to check for ace in card 3
+        handval = hand[0] + hand[1] + hand[2]
+        print(f'{hand[0]}, {hand[1]} and {hand[2]}')
+        print(f'Total value = {handval}')
+        if handval > 21:
+            print('Sorry man, you went over 21...\n')
+            again = input('Wanna try again? Yes (1) No (2)\n')
+            if again == str(1):
+                card()
+            elif again == str(2):
+                print('Alright, hope to see you again soon!')
+                time.sleep(5)
+            else:
+                print('Not applicable, starting over.')
+                time.sleep(3)
+                card()
+        pass
+    elif hit_stand == str(2):
+        print('Stand')
+        handval = hand[0] + hand[1]
+        pass
+    else:
+        print('Not applicable, starting over.')
+        time.sleep(3)
+        card()
+    hit = [True, False]
+    dhit = rnd.choice(hit)
+    if dhit:
+        dcard3 = rnd.choice(card_num)
+        dhand.append(dcard3)
+        if ace in dhand:
+            aceind = dhand.index(ace)
+            print(aceind)
+        print(f'Dealers hand: {dcard1}, {dcard2} and {dcard3}\nTotal Value: {dcard1 + dcard2 + dcard3}')
+    elif not dhit:
+        pass
+
+
+card()
